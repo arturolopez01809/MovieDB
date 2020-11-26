@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.practicaandroid.databinding.ActivityMovieBinding;
 import com.example.practicaandroid.db.DbHelper;
+import com.example.practicaandroid.db.models.TVShowDetail;
 import com.example.practicaandroid.ui.Videos.Result;
 import com.example.practicaandroid.ui.Videos.Videos;
 import com.example.practicaandroid.db.adapaters.CastAdapter;
@@ -130,6 +131,15 @@ public class MovieActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO(2): Abrir el trailer en Youtube
+
+                if(trailer != null) {
+                    Uri uri = Uri.parse("https://www.youtube.com/watch?v=" + trailer.getKey());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MovieActivity.this, getString(R.string.trailer_not_found), Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -202,6 +212,9 @@ public class MovieActivity extends AppCompatActivity {
                     case 200:
                         //TODO(3): Mostrar la búsqueda
                         binding.movieImage.setVisibility(View.VISIBLE);
+                        MovieDetail movie = response.body();
+                        bindMovie(movie);
+
                         break;
                     case 401:
                         break;
