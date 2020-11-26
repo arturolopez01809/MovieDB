@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInstance {
     private static Retrofit retrofit;
 
-    
+
     private static final String API_KEY = "6bbd5a38d1d873d03fdf0ae0b9d864cb";
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
     private static final String LANGUAGE = "es";

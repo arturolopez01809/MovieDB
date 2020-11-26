@@ -278,7 +278,7 @@ public class SerieActivity extends AppCompatActivity {
         int idReal = (int) id;
 
         //TODO(6): Crear objeto retrofit y llamar a conseguir las series similares
-        call.enqueue(new Callback<TVShowFeed>() {
+        /*call.enqueue(new Callback<TVShowFeed>() {
             @Override
             public void onResponse(Call<TVShowFeed> call, Response<TVShowFeed> response) {
                 switch (response.code()) {
@@ -299,6 +299,6 @@ public class SerieActivity extends AppCompatActivity {
                 Toast.makeText(serieAdapter.context, "Error", Toast.LENGTH_SHORT).show();
             }
 
-        });
+        });*/
     }
 }
