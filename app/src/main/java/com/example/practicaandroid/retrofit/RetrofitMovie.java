@@ -8,7 +8,7 @@ public class RetrofitMovie {
     private static Retrofit retrofit;
 
     /* Indique su API Key de themoviedb.org */
-    private static final String API_KEY = "99b4c3070137e46945a47d68eb4d49f3";
+    private static final String API_KEY = "6bbd5a38d1d873d03fdf0ae0b9d864cb";
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
 
     /*

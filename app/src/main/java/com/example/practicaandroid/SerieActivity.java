@@ -225,7 +225,12 @@ public class SerieActivity extends AppCompatActivity {
 
                     case 200:
                         //TODO(5): Cargar Casting
+                        CreditsFeed credits = response.body();
+
+                        serieAdapter.swap(credits.getCast());
+
                         serieAdapter.notifyDataSetChanged();
+
                         break;
                     case 401:
                         break;

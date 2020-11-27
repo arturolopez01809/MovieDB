@@ -15,9 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.practicaandroid.databinding.ActivityMovieBinding;
 import com.example.practicaandroid.db.DbHelper;
+import com.example.practicaandroid.db.adapaters.CastAdapterMovie;
 import com.example.practicaandroid.db.models.TVShowDetail;
 import com.example.practicaandroid.ui.Videos.Result;
 import com.example.practicaandroid.ui.Videos.Videos;
@@ -46,6 +48,7 @@ public class MovieActivity extends AppCompatActivity {
     CastAdapter movieAdapter;
 
 
+
     List<Result> allVideos = new ArrayList<>();
     Result trailer = new Result();
     ActivityMovieBinding binding;
@@ -60,6 +63,9 @@ public class MovieActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getFloatExtra("id", 0);
+
+        movieAdapter = new CastAdapter(getApplicationContext());
+        similarAdapter = new MovieAdapter(getApplicationContext());
 
         binding.movieImage.setVisibility(View.INVISIBLE);
         binding.buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +89,7 @@ public class MovieActivity extends AppCompatActivity {
         binding.rvCasting.setItemAnimator(new DefaultItemAnimator());
         binding.rvCasting.setAdapter(similarAdapter);
 
-        movieAdapter = new CastAdapter(this);
-        similarAdapter = new MovieAdapter(this);
+
 
         loadSimilarMovies();
         loadCast();
@@ -232,8 +237,8 @@ public class MovieActivity extends AppCompatActivity {
 
     private void loadCast() {
 
-        int idReal = (int) id;
-        MovieService getMovie = RetrofitInstance.getRetrofitInstance().create(MovieService.class);
+        final int idReal = (int) id;
+        final MovieService getMovie = RetrofitInstance.getRetrofitInstance().create(MovieService.class);
 
         Call<CreditsFeed> call = getMovie.getMovieCast(idReal, RetrofitInstance.getApiKey(), getString(R.string.language));
         call.enqueue(new Callback<CreditsFeed>() {
@@ -241,8 +246,13 @@ public class MovieActivity extends AppCompatActivity {
             public void onResponse(Call<CreditsFeed> call, Response<CreditsFeed> response) {
                 switch (response.code()) {
                     case 200:
-                        CreditsFeed credits = response.body();
                         //TODO(4): Mostrar el casting
+                        CreditsFeed credits = response.body();
+
+                        movieAdapter.swap(credits.getCast());
+
+                        movieAdapter.notifyDataSetChanged();
+
                         break;
                     case 401:
                         break;
