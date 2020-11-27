@@ -224,7 +224,7 @@ public class SerieActivity extends AppCompatActivity {
                 switch (response.code()) {
 
                     case 200:
-                        //TODO(5): Cargar Casting
+                        
                         CreditsFeed credits = response.body();
 
                         serieAdapter.swap(credits.getCast());
@@ -282,8 +282,11 @@ public class SerieActivity extends AppCompatActivity {
     public void loadSimilarSeries() {
         int idReal = (int) id;
 
-        //TODO(6): Crear objeto retrofit y llamar a conseguir las series similares
-        /*call.enqueue(new Callback<TVShowFeed>() {
+        MovieService getMovie = RetrofitInstance.getRetrofitInstance().create(MovieService.class);
+
+        Call<TVShowFeed> call = getMovie.getSimilarSeries(idReal, RetrofitInstance.getApiKey(), "en-US");
+        
+        call.enqueue(new Callback<TVShowFeed>() {
             @Override
             public void onResponse(Call<TVShowFeed> call, Response<TVShowFeed> response) {
                 switch (response.code()) {
@@ -304,6 +307,6 @@ public class SerieActivity extends AppCompatActivity {
                 Toast.makeText(serieAdapter.context, "Error", Toast.LENGTH_SHORT).show();
             }
 
-        });*/
+        });
     }
 }

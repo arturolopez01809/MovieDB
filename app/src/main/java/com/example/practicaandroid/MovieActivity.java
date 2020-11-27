@@ -135,7 +135,7 @@ public class MovieActivity extends AppCompatActivity {
         binding.btWatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO(2): Abrir el trailer en Youtube
+
 
                 if(trailer != null) {
                     Uri uri = Uri.parse("https://www.youtube.com/watch?v=" + trailer.getKey());
@@ -215,7 +215,7 @@ public class MovieActivity extends AppCompatActivity {
             public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
                 switch (response.code()) {
                     case 200:
-                        //TODO(3): Mostrar la búsqueda
+
                         binding.movieImage.setVisibility(View.VISIBLE);
                         MovieDetail movie = response.body();
                         bindMovie(movie);
@@ -246,7 +246,7 @@ public class MovieActivity extends AppCompatActivity {
             public void onResponse(Call<CreditsFeed> call, Response<CreditsFeed> response) {
                 switch (response.code()) {
                     case 200:
-                        //TODO(4): Mostrar el casting
+
                         CreditsFeed credits = response.body();
 
                         movieAdapter.swap(credits.getCast());
